@@ -1,8 +1,19 @@
 # Minimalna wymagana wersja CMake
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.0)
 
 # Nazwa projektu
 project(CCTV-System-Design-Lab)
+
+# Find OpenCV package
+find_package(OpenCV REQUIRED)
+
+# Include directories from OpenCV
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+# Create an executable
+add_executable()
+
+set(OpenCV_DIR D:\opencv\build)
 
 # Standard C++ (można zmienić na C++17 lub nowszy w razie potrzeby)
 set(CMAKE_CXX_STANDARD 17)
@@ -16,8 +27,6 @@ set(LOGS_DIR ${CMAKE_SOURCE_DIR}/logs)
 set(TEST_DATA_DIR ${CMAKE_SOURCE_DIR}/test_data)
 set(BUILD_DIR ${CMAKE_SOURCE_DIR}/build)
 
-# Włącz OpenCV
-find_package(OpenCV REQUIRED)
 
 # Włączenie folderu źródłowego
 include_directories(${SRC_DIR})

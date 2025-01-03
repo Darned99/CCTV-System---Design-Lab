@@ -25,14 +25,38 @@
  * 
  */
 
-
-
-
 #include <iostream>
 #include "camera.h"
 
 namespace dl{
-    
 
+    dl::Camera::Camera(int id, const std::string& name) : cameraId(id), windowName(name) {}
 
-};
+    dl::Camera::~Camera() {
+        release();
+    }
+
+    bool dl::Camera::open() {
+        capture.open(cameraId);
+        if (!capture.isOpened()) {
+            std::cerr << "Nie można otworzyc kamery: " << cameraId << std::endl;
+            return false;
+        }
+        return true;
+    }
+
+    void dl::Camera::showFrame() {
+        cv::Mat frame;
+        capture >> frame;
+        if (!frame.empty()) {
+            cv::imshow(windowName, frame);
+        }
+    }
+
+    void dl::Camera::release() {
+        if (capture.isOpened()) {
+            capture.release();
+        }
+    }
+
+}
